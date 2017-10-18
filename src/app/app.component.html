@@ -1,0 +1,8 @@
+<header class="jumbotron">
+    <h1 class="text-center">CaelumPic</h1>
+</header>
+<article class="container">
+    <painel *ngFor="let foto of fotos" titulo="{{foto.titulo}}" class="col-sm-2">
+        <foto url="{{foto.url}}" titulo="{{foto.titulo}}"></foto>
+    </painel>
+</article>
