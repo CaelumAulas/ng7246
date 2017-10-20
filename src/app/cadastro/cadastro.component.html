@@ -6,29 +6,41 @@
         <p *ngIf="mensagem" class="alert alert-success">
             {{mensagem}}
         </p>
-        <form #formCadastro="ngForm" class="col-sm-6" (submit)="salvar($event)" >
-
-            <h2>{{foto.titulo}}</h2>
+        <form [formGroup]="formCadastro" class="col-sm-6" (submit)="salvar($event)" >
             
             <div class="form-group">
                 <label for="titulo">Titulo</label>
-                <input #inputTitulo="ngModel" required [(ngModel)]="foto.titulo" name="titulo" type="text" id="titulo" class="form-control">
-                <div class="alert alert-warning" *ngIf="inputTitulo.invalid">
-                    Titulo deve ser preenchido
-                </div>
+                <input 
+                formControlName="titulo"
+                [(ngModel)]="foto.titulo" name="titulo" type="text" id="titulo" class="form-control">
+                
+<div *ngIf="formCadastro.controls.titulo.errors">
+    <div class="alert alert-warning" *ngIf="formCadastro.controls.titulo.errors.required">
+        Titulo deve ser preenchido
+    </div>
+    <div class="alert alert-warning" *ngIf="formCadastro.controls.titulo.errors.minlength">
+        Titulo deve ter pelo menos 3 caracteres
+    </div>
+</div>
             </div>
 
             <div class="form-group">
                 <label for="url">Url</label>
-                <input #inputUrl="ngModel" required  [(ngModel)]="foto.url" name="url" type="text" id="url" class="form-control">
-                <div class="alert alert-warning" *ngIf="inputUrl.invalid">
-                        URL deve ser preenchido
+
+                <input 
+                    formControlName="url"
+                [(ngModel)]="foto.url" name="url" type="text" id="url" class="form-control">
+
+                <div class="alert alert-warning" *ngIf="formCadastro.controls.url.invalid">
+                    URL deve ser preenchido
                 </div>
             </div>
 
             <div class="form-group">
                 <label for="descricao">Descrição</label>
-                <textarea [(ngModel)]="foto.descricao" name="desccricao" id="descricao" class="form-control"></textarea>
+                <textarea 
+                    formControlName="descricao"
+                [(ngModel)]="foto.descricao" name="desccricao" id="descricao" class="form-control"></textarea>
             </div>
 
             <a [routerLink]="['']" class="btn btn-default">Voltar</a>
@@ -39,7 +51,7 @@
 
         </form>
         <aside class="col-sm-4">
-            <painel titulo="{{foto.titulo}}">
+            <painel titulo="{{foto.titulo}}" *ngIf="foto.titulo">
                 <foto url="{{foto.url}}" titulo="{{foto.titulo}}" ></foto>
             </painel>
         </aside>

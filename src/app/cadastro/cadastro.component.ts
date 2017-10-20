@@ -3,6 +3,7 @@ import { FotoComponent } from './../foto/foto.component';
 import { Component, OnInit } from '@angular/core';
 import { FotoService } from '../servicos/foto.service'
 import { ActivatedRoute, Router } from '@angular/router'
+import { FormGroup, FormBuilder, Validators } from '@angular/forms'
 
 @Component({
   selector: 'cadastro',
@@ -12,11 +13,24 @@ export class CadastroComponent implements OnInit {
 
   foto = new FotoComponent()
   mensagem: string = ''
+  formCadastro: FormGroup
 
   constructor(private servico: FotoService,
               private rota: ActivatedRoute,
-              private roteamento: Router
+              private roteamento: Router,
+              private formBuilder: FormBuilder
             ) {
+
+          this.formCadastro = formBuilder.group({
+            titulo: ['', Validators.compose(
+                  [
+                    Validators.required
+                   ,Validators.minLength(3)
+                  ]
+            )],
+            url: ['', Validators.required],
+            descricao: ''
+          })
 
           this.rota.params.subscribe(
             parametros => {
@@ -46,7 +60,10 @@ export class CadastroComponent implements OnInit {
     if(this.foto._id){
       this.servico.atualizar(this.foto)
                   .subscribe(
-                    () => {
+                    mensagens => {
+                      
+                      this.mensagem = mensagens.texto
+                      
                       this.roteamento.navigate([''])
                     }
                     , erro => console.log(erro)
@@ -56,9 +73,9 @@ export class CadastroComponent implements OnInit {
 
       this.servico.cadastrar(this.foto)
                   .subscribe(
-                    () => {
+                    mensagens => {
 
-                      this.mensagem = `Foto ${this.foto.titulo} cadastrada com sucesso!`
+                      this.mensagem = mensagens.texto
 
                       setTimeout(
                         () => this.mensagem = ''

@@ -1,5 +1,5 @@
 import { FotoComponent } from './../foto/foto.component';
-import { Component } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
 import { FotoService } from '../servicos/foto.service'
 
 @Component({
@@ -7,7 +7,7 @@ import { FotoService } from '../servicos/foto.service'
   templateUrl: 'listagem.component.html',
   styles: []
 })
-export class ListagemComponent  {
+export class ListagemComponent implements OnInit{
   
   title = 'CaelumPic'
   fotos: FotoComponent[] = []
@@ -19,6 +19,10 @@ export class ListagemComponent  {
                 resposta => this.fotos = resposta.json()
                 , erro => console.log(erro)
             )
+  }
+
+  ngOnInit(){
+    
   }
 
   remover(foto: FotoComponent){
