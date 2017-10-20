@@ -1,0 +1,39 @@
+<header class="jumbotron">
+    <h1 class="text-center">Cadastro</h1>
+</header>
+<article class="container">
+    <div class="row">
+        <form class="col-sm-6" (submit)="salvar($event)" >
+
+            <h2>{{foto.titulo}}</h2>
+            
+            <div class="form-group">
+                <label for="titulo">Titulo</label>
+                <input [(ngModel)]="foto.titulo" name="titulo" type="text" id="titulo" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label for="url">Url</label>
+                <input [(ngModel)]="foto.url" name="url" type="text" id="url" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label for="descricao">Descrição</label>
+                <textarea [(ngModel)]="foto.descricao" name="desccricao" id="descricao" class="form-control"></textarea>
+            </div>
+
+            <a [routerLink]="['']" class="btn btn-default">Voltar</a>
+
+            <button type="submit" class="btn btn-primary">
+                Salvar
+            </button>
+
+        </form>
+        <aside class="col-sm-4">
+            <painel titulo="{{foto.titulo}}">
+                <foto url="{{foto.url}}" titulo="{{foto.titulo}}" ></foto>
+            </painel>
+        </aside>
+    </div>
+</article>
+
