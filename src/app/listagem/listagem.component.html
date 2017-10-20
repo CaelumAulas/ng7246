@@ -8,15 +8,26 @@
     </p>
     
     <div class="row">
-        <a [routerLink]="['/cadastro']" class="btn btn-primary">
-            Nova foto
-        </a>
+        <div class="col-md-12">
+            <form>
+                <div class="input-group">
+                    <span class="input-group-btn">
+                        <a [routerLink]="['/cadastro']" class="btn btn-primary">
+                            Nova foto
+                        </a>
+                    </span>
+
+                    <input (input)="0" #inputBusca type="search" placeholder="Busque pelo titulo da foto" class="form-control">
+                </div>
+            </form>    
+        </div>
     </div>
     
     <div class="row">
-        <painel *ngFor="let foto of fotos" titulo="{{foto.titulo}}" class="col-sm-2">
-            <foto url="{{foto.url}}" titulo="{{foto.titulo}}"></foto>
-
+        <painel *ngFor="let foto of fotos | filtroPorTitulo:inputBusca.value " titulo="{{foto.titulo}}" class="col-sm-2">
+            <a [routerLink]="['/cadastro',foto._id]">
+                <foto url="{{foto.url}}" titulo="{{foto.titulo}}"></foto>
+            </a>
             <button class="btn btn-danger" (click)="remover(foto)">
                 Remover
             </button>

@@ -5,6 +5,7 @@ import { CadastroComponent } from './cadastro/cadastro.component';
 const rotas:Routes = [
     {path: "", component: ListagemComponent},
     {path: "cadastro", component: CadastroComponent},
+    {path: "cadastro/:id", component: CadastroComponent},
     {path: "**", redirectTo: "" }
 ]
 

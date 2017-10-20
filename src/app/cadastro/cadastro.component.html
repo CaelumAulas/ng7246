@@ -3,6 +3,9 @@
 </header>
 <article class="container">
     <div class="row">
+        <p *ngIf="mensagem" class="alert alert-success">
+            {{mensagem}}
+        </p>
         <form class="col-sm-6" (submit)="salvar($event)" >
 
             <h2>{{foto.titulo}}</h2>

@@ -42,8 +42,16 @@ export class FotoService {
         return this.conexaoApi.delete(this.url+foto._id)
     }
 
-    atualizar(){}
+    atualizar(foto: FotoComponent): Observable<Response>{
+        return this.conexaoApi.put(
+                    this.url+foto._id
+                    , JSON.stringify(foto)
+                    , {headers: this.cabecalho}
+                )
+    }
 
-    obterFoto(){}
+    obterFoto(id): Observable<Response>{
+        return this.conexaoApi.get(this.url+id)
+    }
 
 }
